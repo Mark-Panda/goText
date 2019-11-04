@@ -42,3 +42,4 @@ func Upload(c *gin.Context)  {
 	}
 	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 }
+
