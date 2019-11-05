@@ -13,16 +13,19 @@ const (
 )
 
 var DB *gorm.DB
-func Init()  {
+func Init() (*gorm.DB, error)  {
 	connInfo := fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local", UserName, PassWord, DataBase)
 	db, err := gorm.Open("mysql",connInfo)
 	if err != nil {
 		fmt.Println("数据库连接失败", err)
-		return
+		return db, err
 	}
+	fmt.Println("数据库连接成功")
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 	db.DB().SetConnMaxLifetime(100 * time.Second)
-	defer DB.Close()
+	//defer DB.Close()
+	DB = db
+	return db, nil
 }
 

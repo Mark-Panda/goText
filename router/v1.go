@@ -6,7 +6,8 @@ import (
 	"ginProject/server"
 )
 
-func NewInit(e *gin.Engine)  {
+func NewInit() *gin.Engine {
+	e := gin.New()
 	v1 := e.Group("v1")
 	{
 		v1.GET("/ping", func(c *gin.Context) {
@@ -27,7 +28,10 @@ func NewInit(e *gin.Engine)  {
 		//表单上传
 		v1.POST("/upload", server.Upload)
 
+		//测试数据库连接
+		v1.POST("/database", server.Login)
 	}
+	return e
 }
 
 

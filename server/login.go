@@ -2,9 +2,22 @@ package server
 
 import (
 	"fmt"
+	"ginProject/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
+
+func Login(c *gin.Context)  {
+	name := c.PostForm("name")
+	fmt.Println("入参",name)
+	info,err := model.FindMany(name)
+	if err != nil {
+		fmt.Println("查询错误",err)
+	}
+	c.JSON(200, gin.H{
+		"context": info,
+	})
+}
 
 
 func Posting(c *gin.Context)  {
